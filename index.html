@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kaizen Sushi House – Get the app</title>
+<meta name="description" content="Add Kaizen Sushi House to your phone and order in two taps.">
+<meta name="theme-color" content="#CC0000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Kaizen">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+  :root {
+    --red: #CC0000;
+    --orange: #FF3F00;
+    --cream: #FFF6EC;
+    --ink: #2A1A17;
+    --muted: #7A625C;
+    --card: #FFFFFF;
+    --line: #F0DFD0;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100svh;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    padding: max(20px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+  }
+  main { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+  .logo { width: min(78%, 300px); height: auto; margin: 8px 0 4px; }
+  h1 { font-size: 1.55rem; line-height: 1.2; text-align: center; margin: 14px 0 6px; letter-spacing: -.01em; }
+  .sub { text-align: center; color: var(--muted); margin: 0 0 22px; font-size: 1rem; line-height: 1.45; }
+
+  .btn {
+    display: block; width: 100%; text-align: center; text-decoration: none;
+    font: inherit; font-weight: 700; font-size: 1.05rem;
+    padding: 16px 18px; border-radius: 14px; border: 0; cursor: pointer;
+  }
+  .btn-primary { background: var(--red); color: #fff; box-shadow: 0 6px 18px rgba(204,0,0,.28); }
+  .btn-primary:active { background: #A80000; }
+  .btn-ghost { background: transparent; color: var(--red); border: 2px solid var(--red); margin-top: 12px; }
+  .link { margin-top: 16px; color: var(--muted); font-size: .95rem; }
+  .link a { color: var(--red); font-weight: 600; }
+
+  .card { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-top: 4px; }
+  .card h2 { font-size: 1.05rem; margin: 0 0 12px; }
+  ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+  ol.steps li { counter-increment: s; display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); line-height: 1.4; }
+  ol.steps li:first-child { border-top: 0; padding-top: 0; }
+  ol.steps li::before {
+    content: counter(s); flex: 0 0 28px; height: 28px; border-radius: 50%;
+    background: var(--red); color: #fff; font-weight: 700; font-size: .9rem;
+    display: grid; place-items: center; margin-top: 1px;
+  }
+  .ico { display: inline-block; vertical-align: -4px; }
+  .banner {
+    width: 100%; background: #FFF0E0; border: 1px solid #FFD2A8; color: #7A3B00;
+    border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; line-height: 1.45; font-size: .95rem;
+  }
+  .banner b { color: #5C2A00; }
+  [hidden] { display: none !important; }
+
+  /* splash shown when opened from the home screen */
+  #splash { position: fixed; inset: 0; background: var(--cream); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
+  body.standalone #splash { display: flex; }
+  body.standalone main { display: none; }
+  #splash img { width: 62%; max-width: 260px; }
+  .dots { display: flex; gap: 8px; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--red); opacity: .25; animation: p 1s infinite; }
+  .dots i:nth-child(2) { animation-delay: .15s; } .dots i:nth-child(3) { animation-delay: .3s; }
+  @keyframes p { 50% { opacity: 1; } }
+  #splash a { color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <img src="logo.svg" alt="Kaizen Sushi House">
+  <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+  <a id="splashGo" href="#">Taking too long? Tap here</a>
+</div>
+
+<main>
+  <img class="logo" src="logo.svg" alt="Kaizen Sushi House">
+  <h1>Order Kaizen in two taps</h1>
+  <p class="sub">Add Kaizen to your phone's home screen. No download, no app store, nothing to update.</p>
+
+  <!-- Instagram / Facebook in-app browser -->
+  <div id="inapp" class="banner" hidden>
+    <b>Open this page in your browser first.</b><br>
+    Instagram's built-in browser can't add apps to your home screen. Tap <b>⋯</b> (top corner), then <b>Open in browser</b> (Safari on iPhone, Chrome on Android).
+  </div>
+
+  <!-- Android -->
+  <div id="android" hidden style="width:100%">
+    <button id="installBtn" class="btn btn-primary" type="button">Install the app</button>
+    <div id="androidManual" class="card" hidden style="margin-top:14px">
+      <h2>Install in 2 taps</h2>
+      <ol class="steps">
+        <li><span>Tap the <b>⋮</b> menu in Chrome (top right).</span></li>
+        <li><span>Tap <b>Install app</b> or <b>Add to Home screen</b>.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- iPhone / iPad -->
+  <div id="ios" hidden style="width:100%">
+    <div class="card">
+      <h2>Add Kaizen to your iPhone in 3 steps</h2>
+      <ol class="steps">
+        <li><span>Open this page in <b>Safari</b>.</span></li>
+        <li><span>Tap the <b>Share</b> button
+          <svg class="ico" width="20" height="22" viewBox="0 0 20 22" fill="none" stroke="#CC0000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="share icon"><path d="M10 14V2M6 6l4-4 4 4M4 9H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-1"/></svg>
+          at the bottom of the screen.</span></li>
+        <li><span>Scroll down, tap <b>Add to Home Screen</b>, then <b>Add</b>.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Desktop / unknown -->
+  <div id="other" hidden style="width:100%">
+    <div class="card"><h2>Open this page on your phone</h2>
+      <p style="margin:0;color:var(--muted);line-height:1.5">Scan the QR code on your Kaizen packaging, or open this link on your phone to add the app.</p>
+    </div>
+  </div>
+
+  <a id="orderNow" class="btn btn-ghost" href="#">Order now</a>
+  <p class="link">Prefer not to install? <a id="orderNow2" href="#">Order in your browser</a></p>
+</main>
+
+<script>
+  // === CONFIG ===
+  var STORE_URL = 'https://kaizensushihouse.foodics.online/';
+  // ==============
+
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|Line\/|Snapchat|TikTok/i.test(ua);
+  var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+
+  function $(id) { return document.getElementById(id); }
+  function go() { window.location.replace(STORE_URL); }
+
+  ['orderNow', 'orderNow2', 'splashGo'].forEach(function (id) { $(id).href = STORE_URL; });
+
+  if (standalone) {
+    // Opened from the home screen: show the splash, then jump into the ordering site.
+    document.body.classList.add('standalone');
+    setTimeout(go, 700);
+  } else {
+    if (inApp) $('inapp').hidden = false;
+    if (isIOS) $('ios').hidden = false;
+    else if (isAndroid) $('android').hidden = false;
+    else $('other').hidden = false;
+
+    var deferred = null;
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; });
+    window.addEventListener('appinstalled', function () { $('installBtn').textContent = 'Installed. Find Kaizen on your home screen'; $('installBtn').disabled = true; });
+
+    $('installBtn').addEventListener('click', function () {
+      if (deferred) {
+        deferred.prompt();
+        deferred.userChoice.finally(function () { deferred = null; });
+      } else {
+        $('androidManual').hidden = false; // browser didn't offer the one-tap prompt
+      }
+    });
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
+</script>
+</body>
+</html>

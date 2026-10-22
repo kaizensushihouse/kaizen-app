@@ -1,0 +1,16 @@
+{
+  "name": "Kaizen Sushi House",
+  "short_name": "Kaizen",
+  "description": "Order Kaizen Sushi House for pickup or delivery.",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF6EC",
+  "theme_color": "#CC0000",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
